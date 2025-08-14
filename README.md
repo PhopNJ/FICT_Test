@@ -1,13 +1,13 @@
 Tax Project (Dev Quick Reference)
 
-เว็บแอปจัดการข้อมูลที่ดินและสิ่งปลูกสร้าง
+เว็บคำนวณและบันทึกข้อมูลภาษีที่ดินและสิ่งปลูกสร้าง
 รันบน Express.js + EJS และ MySQL
 
 --------------------------------------------------
 1. Setup
 
-$ git clone <repo>
-$ cd <project>
+$ gh repo clone PhopNJ/FICT_Test
+$ cd FICT_Test
 $ npm install
 
 สร้าง .env:
