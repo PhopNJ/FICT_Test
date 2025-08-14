@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คัดกรองและค้นหาข้อมูล</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://kit.fontawesome.com/1c1d6ea21f.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <div class="head">
+        <div class="title">
+            <i class="fa-solid fa-calculator" id="icon"></i>
+            <h2>ระบบคำนวณและบันทึกข้อมูลภาษีที่ดินและสิ่งปลูกสร้าง</h2>
+        </div>
+
+        <div class="menu">
+            <ul>
+                <li>
+                    <a href="/form" class="active"><i class="fa-solid fa-calculator"></i>ฟอร์มกรอกข้อมูล</a>
+                </li>
+                <li>
+                    <a href="/detail"><i class="fa-solid fa-file-invoice"></i>รายละเอียดข้อมูล</a>
+                </li>
+                <li>
+                    <a href="/filter"><i class="fa-solid fa-filter"></i>กรองข้อมูล</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="content-wrap  bg-gray-50 p-6">
+        <div class="space-y-6 mx-auto">
+            <!-- Page Header -->
+            <div class="text-center space-y-2">
+                <h1 class="text-2xl font-bold flex items-center justify-center gap-3">
+                    รายละเอียดข้อมูลการคำนวณภาษี
+                </h1>
+                <p class="text-gray-500">
+                    ดู แก้ไข และจัดการข้อมูลการคำนวณภาษีที่ดินและสิ่งปลูกสร้าง
+                </p>
+            </div>
+            <!-- Filter Section -->
+            <div class="bg-white rounded-lg shadow p-6 mb-6">
+                <div class="title flex items-center justify-between mb-4">
+                    <h2 class="title-text flex items-center gap-2">
+                        <i class="fa-solid fa-filter"></i>
+                        ตัวกรองข้อมูล
+                        <span id="active-filter-count"
+                            class="ml-3 px-3 py-1 rounded bg-blue-100 text-blue-600 text-sm font-medium"></span>
+                    </h2>
+                    <button id="clearBtn"
+                        class="flex items-center gap-2 px-4 py-2 border rounded text-blue-600 hover:bg-blue-50">
+                        <i class="fa-solid fa-rotate-right"></i>
+                        ล้างตัวกรอง
+                    </button>
+                </div>
+                <form class="filter-form space-y-8">
+                    <!-- Search -->
+                    <div>
+                        <label for="search" class="block text-sm font-medium text-gray-700 mb-2">
+                            ค้นหาเลขที่โฉนด หรือ เขต/อำเภอ
+                        </label>
+                        <input type="text" id="search" placeholder="ค้นหาจากเลขที่โฉนดหรือเขต/อำเภอ"
+                            class="w-full border rounded px-3 py-2" />
+                    </div>
+
+                    <hr class="my-4" />
+
+                    <!-- Land Type / District / Sort -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="custom-dropdown custom-input">
+                            <label for="landTypeDropdown">ประเภทที่ดิน (โฉนด)</label>
+                            <div class="dropdown-selected">เลือกประเภทที่ดิน</div>
+                            <div class="dropdown-options">
+                                <div class="dropdown-option" data-value="chanote">โฉนดที่ดิน</div>
+                                <div class="dropdown-option" data-value="norSor3Kor">น.ส.3ก</div>
+                                <div class="dropdown-option" data-value="norSor3">น.ส.3</div>
+                                <div class="dropdown-option" data-value="sorKor1">ส.ค.1</div>
+                                <div class="dropdown-option" data-value="other">อื่นๆ</div>
+                            </div>
+                            <input type="hidden" name="landType" id="landType" required>
+                        </div>
+
+                        <div class="custom-dropdown custom-input">
+                            <label for="districtDropdown">เขต</label>
+                            <div class="dropdown-selected">เลือกเขต</div>
+                            <div class="dropdown-options">
+                                <div class="dropdown-option" data-value="wattana">วัฒนา</div>
+                                <div class="dropdown-option" data-value="sampran">สามพราน</div>
+                                <div class="dropdown-option" data-value="sathon">สาทร</div>
+                                <div class="dropdown-option" data-value="other">อื่นๆ</div>
+                            </div>
+                            <input type="hidden" name="district" id="districtDropdown" required>
+                        </div>
+
+                        <div class="custom-dropdown custom-input">
+                            <label for="sortByDropdown">เรียงลำดับตาม</label>
+                            <div class="dropdown-selected">เลือกการเรียงลำดับ</div>
+                            <div class="dropdown-options">
+                                <div class="dropdown-option" data-value="lastModified-desc">วันที่แก้ไขล่าสุด
+                                    (ใหม่-เก่า)</div>
+                                <div class="dropdown-option" data-value="lastModified-asc">วันที่แก้ไขล่าสุด (เก่า-ใหม่)
+                                </div>
+                                <div class="dropdown-option" data-value="totalTax-desc">ภาษี (มาก-น้อย)</div>
+                                <div class="dropdown-option" data-value="totalTax-asc">ภาษี (น้อย-มาก)</div>
+                            </div>
+                            <input type="hidden" name="sortBy" id="sortByDropdown" required>
+                        </div>
+                    </div>
+
+                    <!-- Tax & Value Range -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="taxRangeMin" class="block text-sm font-medium text-gray-700">ช่วงภาษีที่ต้องชำระ
+                                (บาท)</label>
+                            <div class="flex gap-2 mt-2">
+                                <input type="text" id="taxRangeMin" placeholder="ต่ำสุด"
+                                    class="w-full border rounded px-3 py-2">
+                                <input type="text" id="taxRangeMax" placeholder="สูงสุด"
+                                    class="w-full border rounded px-3 py-2">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="valueRangeMin" class="block text-sm font-medium text-gray-700">ช่วงมูลค่าประเมิน
+                                (บาท)</label>
+                            <div class="flex gap-2 mt-2">
+                                <input type="text" id="valueRangeMin" placeholder="ต่ำสุด"
+                                    class="w-full border rounded px-3 py-2">
+                                <input type="text" id="valueRangeMax" placeholder="สูงสุด"
+                                    class="w-full border rounded px-3 py-2">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+            <!-- import data -->
+            <div class="bg-white rounded-lg shadow p-6 mb-6 flex items-center justify-between">
+                <span class="export-text" id="import-count">ยังไม่ได้นำเข้าข้อมูล</span>
+                <input type="file" id="importFile" accept=".xlsx" style="display:none" />
+                <button id="importBtn"
+                    class="import-btn flex items-center gap-2 px-5 py-2 rounded bg-blue-600 text-white font-medium hover:bg-blue-700 transition">
+                    <i class="fa-solid fa-file-import"></i>
+                    <span>นำเข้าข้อมูล</span>
+                </button>
+            </div>
+            <!-- <div class="bg-white rounded-lg shadow p-6 mb-6 flex items-center justify-between">
+                <span class="export-text" id="export-count">แสดงผลลัพธ์ 0 รายการ</span>
+                <button id="export-btn"
+                    class="export-btn flex items-center gap-2 px-5 py-2 rounded bg-blue-600 text-white font-medium hover:bg-blue-700 transition">
+                    <i class="fa-solid fa-file-export"></i>
+                    <span>ส่งออกข้อมูล</span>
+                </button>
+            </div> -->
+
+            <!-- ✅ Results Table -->
+            <div class="bg-white rounded-lg shadow p-6 mb-6">
+                <h2 class="text-xl font-semibold text-blue-600 mb-4">ผลลัพธ์การค้นหา</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full border rounded-lg">
+                        <thead class="bg-blue-50 sticky top-0 z-10">
+                            <tr>
+                                <th class="text-center p-3 font-medium text-gray-700 border-b">เลขที่โฉนด</th>
+                                <th class="text-center p-3 font-medium text-gray-700 border-b">ลักษณะการใช้งาน</th>
+                                <th class="text-center p-3 font-medium text-gray-700 border-b">พื้นที่ (ตร.ว.)</th>
+                                <th class="text-center p-3 font-medium text-gray-700 border-b">จำนวนสิ่งปลูกสร้าง</th>
+                                <th class="text-center p-3 font-medium text-gray-700 border-b">มูลค่าประเมิน</th>
+                                <th class="text-center p-3 font-medium text-gray-700 border-b">ภาษีที่ต้องชำระ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="filter-table-body">
+                            <!-- Data rows will be injected here -->
+                        </tbody>
+                    </table>
+                    <div id="filter-pagination" class="flex justify-center items-center gap-2 mt-6"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../script/filter-script.js"></script>
+    <script>
+        // Get current path
+        const currentPath = window.location.pathname;
+
+        // Select all menu links
+        document.querySelectorAll('.menu a').forEach(link => {
+            // Remove any existing 'active' class
+            link.classList.remove('active');
+
+            // Add 'active' if href matches current path
+            if (link.getAttribute('href') === currentPath) {
+                link.classList.add('active');
+            }
+        });
+    </script>
+</body>

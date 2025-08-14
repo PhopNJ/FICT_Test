@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://kit.fontawesome.com/1c1d6ea21f.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+  <div class="containRwapper">
+    <div class="head">
+      <div class="title">
+        <i class="fa-solid fa-calculator" id="icon"></i>
+        <h2>ระบบคำนวณและบันทึกข้อมูลภาษีที่ดินและสิ่งปลูกสร้าง</h2>
+      </div>
+
+      <div class="menu">
+        <ul>
+          <li>
+            <a href="/form" class="active"><i class="fa-solid fa-calculator"></i>ฟอร์มกรอกข้อมูล</a>
+          </li>
+          <li>
+            <a href="/detail"><i class="fa-solid fa-file-invoice"></i>รายละเอียดข้อมูล</a>
+          </li>
+          <li>
+            <a href="/filter"><i class="fa-solid fa-filter"></i>กรองข้อมูล</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="formWrap">
+      <div class="mainTitle">
+        <h1>ฟอร์มกรอกข้อมูลคำนวณภาษีที่ดินและสิ่งปลูกสร้าง</h1>
+        <span
+          style="font-weight: 300; color: red;">*กรุณากรอกข้อมูลให้ครบถ้วนเพื่อคำนวณภาษีที่ดินและสิ่งปลูกสร้าง</span>
+      </div>
+
+      <form class="space-y-6" style="width: 95%;">
+        <!-- Section 1: รายละเอียดลักษณะของที่ดิน -->
+        <div class="bg-white rounded-lg shadow" id="formSection">
+          <h2 class="text-xl text-blue-600 mb-4">ส่วนที่ 1: รายละเอียดลักษณะของที่ดิน</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="custom-dropdown custom-input" id="landTypeDropdown">
+              <label for="landTypeDropdown">ประเภทที่ดิน (โฉนด)</label>
+              <div class="dropdown-selected">เลือกประเภทที่ดิน</div>
+              <div class="dropdown-options">
+                <div class="dropdown-option" data-value="chanote">โฉนดที่ดิน</div>
+                <div class="dropdown-option" data-value="norSor3Kor">น.ส.3ก</div>
+                <div class="dropdown-option" data-value="norSor3">น.ส.3</div>
+                <div class="dropdown-option" data-value="sorKor1">ส.ค.1</div>
+                <div class="dropdown-option" data-value="other">อื่นๆ</div>
+              </div>
+              <input type="hidden" name="landType" id="landType" required>
+            </div>
+
+            <div class="custom-input">
+              <label for="titleDeedNumber">เลขที่โฉนด</label>
+              <input id="titleDeedNumber" type="text" class="w-full" placeholder="กรอกเลขที่โฉนด" />
+            </div>
+          </div>
+
+          <div class="space-y-3 mt-3">
+            <label>ลักษณะการทำประโยชน์</label>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <div class="flex items-center space-x-2">
+                <input type="radio" name="landUsageType" id="agriculture" value="agriculture" />
+                <label for="agriculture" class="text-sm">1. ประกอบเกษตรกรรม</label>
+              </div>
+              <div class="flex items-center space-x-2">
+                <input type="radio" name="landUsageType" id="vacant" value="vacant" />
+                <label for="vacant" class="text-sm">4. ทิ้งไว้ว่างเปล่าหรือไม่ได้ทําประโยชน์ตามควรแก่สภาพ</label>
+              </div>
+              <div class="flex items-center space-x-2">
+                <input type="radio" name="landUsageType" id="residential" value="residential" />
+                <label for="residential" class="text-sm">2. อยู่อาศัย</label>
+              </div>
+              <div class="flex items-center space-x-2">
+                <input type="radio" name="landUsageType" id="mixed" value="mixed" />
+                <label for="mixed" class="text-sm">5. ใช้ประโยชน์หลายประเภท</label>
+              </div>
+              <div class="flex items-center space-x-2">
+                <input type="radio" name="landUsageType" id="other" value="other" />
+                <label for="other" class="text-sm">3. อื่นๆ</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: จำนวนพื้นที่ -->
+        <div class="bg-white rounded-lg shadow" id="formSection">
+          <h2 class="text-xl text-blue-600 mb-4">ส่วนที่ 2: จำนวนพื้นที่</h2>
+          <div class="grid grid-cols-3 md:grid-cols-4 gap-4">
+            <div class="space-y-2">
+              <label for="landRai">ไร่</label>
+              <input id="landRai" type="number" min="0" step="1" class="w-full border rounded px-3 py-2 thai-number"
+                placeholder="0" />
+            </div>
+            <div class="space-y-2">
+              <label for="landNgan">งาน</label>
+              <input id="landNgan" type="number" min="0" step="1" class="w-full border rounded px-3 py-2 thai-number"
+                placeholder="0" />
+            </div>
+            <div class="space-y-2">
+              <label for="landWah">ตารางวา</label>
+              <input id="landWah" type="number" min="0" step="0.01" class="w-full border rounded px-3 py-2 thai-number"
+                placeholder="0.00" />
+            </div>
+            <div class="space-y-2">
+              <label class="font-semibold text-blue-600">รวมพื้นที่ (ตารางวา)</label>
+              <div class="flex items-center h-10 px-3 border-2 border-blue-400 rounded bg-blue-100">
+                <span id="totalWah" class="thai-number font-semibold text-blue-600">0</span>
+              </div>
+            </div>
+          </div>
+          <hr class="my-4" />
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <label for="pricePerSqWah">ราคาประเมินต่อตารางวา (บาท)</label>
+              <input id="pricePerSqWah" type="number" min="0" step="0.01"
+                class="w-full border rounded px-3 py-2 thai-number" placeholder="0.00" />
+            </div>
+            <div class="space-y-2">
+              <label class="font-semibold text-blue-600">ราคารวมที่ดิน (บาท)</label>
+              <div class="flex items-center h-10 px-3 border-2 border-blue-400 rounded bg-blue-100">
+                <span id="landTotalPrice" class="thai-number font-bold text-blue-600">0.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3: Building Details - Modified for multiple buildings -->
+        <div class="bg-white rounded-lg shadow" id="formSection">
+          <h2 class="text-xl text-blue-600 mb-4">ส่วนที่ 3: รายละเอียดสิ่งปลูกสร้าง</h2>
+
+          <div id="buildingsContainer">
+            <!-- Each building will be added here -->
+            <div class="building-entry mb-6 p-4 border border-gray-400 rounded-lg shadow-md bg-white">
+              <div class="flex justify-between items-center mb-7 mt-2">
+                <h3 class="text-xl font-semibold text-gray-800">สิ่งปลูกสร้าง #1</h3>
+                <button type="button" class="remove-building text-red-500 hover:text-red-700"
+                  onclick="removeBuilding(this)">
+                  <i class="fa-solid fa-trash"></i> ลบ
+                </button>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div class="custom-input">
+                  <label>ชื่อสิ่งปลูกสร้าง</label>
+                  <input type="text" name="buildingName[]" class="building-name w-full border rounded px-3 py-2" placeholder="ชื่อสิ่งปลูกสร้าง" />
+                </div>
+                <div class="custom-input">
+                  <label>ที่อยู่</label>
+                  <input type="text" name="buildingAddress[]" class="building-address w-full border rounded px-3 py-2" placeholder="ที่อยู่สิ่งปลูกสร้าง" />
+                </div>
+              </div>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="custom-input custom-dropdown building-type">
+                  <label>ประเภทของสิ่งปลูกสร้าง</label>
+                  <div class="dropdown-selected">เลือกประเภทสิ่งปลูกสร้าง</div>
+                  <div class="dropdown-options">
+                    <div class="dropdown-option" data-value="residential">บ้านพักอาศัย</div>
+                    <div class="dropdown-option" data-value="commercial">อาคารพาณิชย์</div>
+                    <div class="dropdown-option" data-value="factory">โรงงาน</div>
+                    <div class="dropdown-option" data-value="warehouse">คลังสินค้า</div>
+                    <div class="dropdown-option" data-value="office">อาคารสำนักงาน</div>
+                    <div class="dropdown-option" data-value="other">อื่นๆ</div>
+                  </div>
+                  <input type="hidden" name="buildingType[]" required>
+                </div>
+
+                <div class="custom-input">
+                  <label>ขนาดพื้นที่สิ่งปลูกสร้าง (ตารางเมตร)</label>
+                  <input type="number" min="0" step="0.01" class="building-area w-full" placeholder="0.00" />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div class="space-y-2">
+                  <label>ราคาประเมินต่อตารางเมตร (บาท)</label>
+                  <input type="number" min="0" step="0.01"
+                    class="price-per-sqm w-full border rounded px-3 py-2 thai-number" placeholder="0.00" />
+                </div>
+
+                <div class="space-y-2">
+                  <label class="font-semibold text-blue-600">รวมราคาประเมินสิ่งปลูกสร้าง (บาท)</label>
+                  <div class="flex items-center h-10 px-3 border-2 border-blue-400 rounded bg-blue-100">
+                    <span class="buildingTotalPrice thai-number font-bold text-blue-600">0.00</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="space-y-4 mt-6">
+                <h4 class="font-semibold">ค่าเสื่อมสภาพ</h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div class="space-y-2">
+                    <label>อายุสิ่งปลูกสร้าง (ปี)</label>
+                    <input type="number" min="0" class="building-age w-full border rounded px-3 py-2 thai-number"
+                      placeholder="0" />
+                  </div>
+
+                  <div class="space-y-2">
+                    <label class="font-semibold text-blue-600">ค่าเสื่อมสภาพ (บาท)</label>
+                    <div class="flex items-center h-10 px-3 border-2 border-blue-400 rounded bg-blue-100">
+                      <span class="depreciation-value thai-number font-bold text-blue-600">0.00</span>
+                    </div>
+                    <div class="text-sm text-blue-600 mt-1 depreciation-rate-text" style="opacity: 0.8; font-size: 12px;">
+                      คิดอัตราเสื่อมร้อยละ 0
+                    </div>
+                  </div>
+
+                  <div class="space-y-2">
+                    <label class="font-semibold text-blue-600">ราคาประเมินหลังหักค่าเสื่อม (บาท)</label>
+                    <div class="flex items-center h-10 px-3 border-2 border-blue-400 rounded bg-blue-100">
+                      <span class="final-price thai-number font-bold text-blue-600">0.00</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="space-y-4 mt-4 tax-summary">
+                <h4 class="font-semibold text-blue-600">สรุปการคำนวณภาษีของสิ่งปลูกสร้างนี้</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div class="space-y-2">
+                    <label>มูลค่าฐานภาษีที่ได้รับยกเว้น (บาท)</label>
+                    <input type="number" min="0" step="0.01"
+                      class="exemptionValue w-full border rounded px-3 py-2 thai-number" placeholder="0.00" />
+                  </div>
+
+                  <div class="space-y-2">
+                    <label>อัตราภาษี (%)</label>
+                    <input type="number" min="0" max="100" step="0.01"
+                      class="taxRate w-full border rounded px-3 py-2 thai-number" placeholder="0.50" />
+                  </div>
+                </div>
+
+                <!-- Auto Summary Section -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                  <div class="space-y-2">
+                    <label class="font-semibold text-blue-600">รวมราคาประเมินที่ดินและสิ่งปลูกสร้าง (บาท)</label>
+                    <div class="flex items-center h-10 px-3 border-2 border-blue-400 rounded bg-blue-100">
+                      <span class="summaryTotalAppraised thai-number font-bold text-blue-600">0.00</span>
+                    </div>
+                  </div>
+                  <div class="space-y-2">
+                    <label class="font-semibold text-green-600">ราคาประเมินทุนทรัพย์ที่ต้องชำระ (บาท)</label>
+                    <div class="flex items-center h-10 px-3 border-2 border-green-400 rounded bg-green-100">
+                      <span class="AssessedValue thai-number font-bold text-green-600">0.00</span>
+                    </div>
+                  </div>
+                  <div class="space-y-2">
+                    <label class="font-bold text-red-600">จำนวนภาษีที่ต้องชำระ (บาท)</label>
+                    <div class="flex items-center h-10 px-3 border-2 border-red-600 rounded bg-red-100">
+                      <span class="summaryTaxAmount thai-number font-bold text-red-600">0.00</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <button type="button" id="addBuildingBtn"
+              class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+              <i class="fa-solid fa-plus"></i> เพิ่มสิ่งปลูกสร้าง
+            </button>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mt-6">
+          <button type="submit"
+            class="w-full sm:w-auto px-8 py-3 bg-blue-600 text-white rounded hover:bg-blue-700">บันทึกข้อมูล</button>
+          <button type="reset" class="w-full sm:w-auto px-8 py-3 border rounded">ล้างข้อมูล</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="footer">
+      <p>&copy; 2023 ระบบคำนวณภาษีที่ดินและสิ่งปลูกสร้าง</p>
+    </div>
+  </div>
+
+  <script src="../script/form-script.js"></script>
+  <script>
+    // Get current path
+    const currentPath = window.location.pathname;
+
+    // Select all menu links
+    document.querySelectorAll('.menu a').forEach(link => {
+        // Remove any existing 'active' class
+        link.classList.remove('active');
+
+        // Add 'active' if href matches current path
+        if (link.getAttribute('href') === currentPath) {
+            link.classList.add('active');
+        }
+    });
+</script>
+</body>
+
+</html>

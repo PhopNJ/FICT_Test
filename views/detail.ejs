@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายละเอียดข้อมูลการคำนวณภาษี</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://kit.fontawesome.com/1c1d6ea21f.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <div class="containRwapper">
+        <div class="head">
+            <div class="title">
+                <i class="fa-solid fa-calculator" id="icon"></i>
+                <h2>ระบบคำนวณและบันทึกข้อมูลภาษีที่ดินและสิ่งปลูกสร้าง</h2>
+            </div>
+
+            <div class="menu">
+                <ul>
+                    <li>
+                        <a href="/form" class="active"><i class="fa-solid fa-calculator"></i>ฟอร์มกรอกข้อมูล</a>
+                    </li>
+                    <li>
+                        <a href="/detail"><i class="fa-solid fa-file-invoice"></i>รายละเอียดข้อมูล</a>
+                    </li>
+                    <li>
+                        <a href="/filter"><i class="fa-solid fa-filter"></i>กรองข้อมูล</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="formWrap">
+            <div class="space-y-6" style="width: 95%;">
+                <!-- Page Header -->
+                <div class="text-center space-y-2">
+                    <h1 class="text-2xl font-bold flex items-center justify-center gap-3">
+                        รายละเอียดข้อมูลการคำนวณภาษี
+                    </h1>
+                    <p class="text-gray-500">
+                        ดู แก้ไข และจัดการข้อมูลการคำนวณภาษีที่ดินและสิ่งปลูกสร้าง
+                    </p>
+                </div>
+                <!-- Summary Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-white rounded-lg shadow p-4 text-center">
+                        <p class="text-sm text-gray-500">จำนวนรายการทั้งหมด</p>
+                        <p class="text-2xl font-bold text-blue-600">
+                            <%= summary.totalItems %>
+                        </p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-4 text-center">
+                        <p class="text-sm text-gray-500">พื้นที่รวม</p>
+                        <p class="text-2xl font-bold text-blue-600">
+                            <%= summary.totalArea %>
+                        </p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-4 text-center">
+                        <p class="text-sm text-gray-500">มูลค่าที่ดินรวม</p>
+                        <p class="text-2xl font-bold text-blue-600">
+                            <%= summary.totalLandValue.toLocaleString('th-TH') %>
+                        </p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-4 text-center">
+                        <p class="text-sm text-gray-500">ภาษีรวม</p>
+                        <p class="text-2xl font-bold text-blue-600">
+                            <%= summary.totalTax %>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Data List -->
+                <div class="data-list bg-white rounded-lg shadow p-6 mt-6">
+                    <div class="data-list-wrap bg-white rounded-lg shadow p-6">
+                        <div class="detail-list-wrap">
+                            <h2 class="text-xl text-blue-600 mb-4">รายการข้อมูลการคำนวณภาษี</h2>
+                            <div id="details-list"></div>
+                        </div>
+                        <div id="pagination" class="flex justify-end items-center gap-2 mt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    window.dataItems = <%- JSON.stringify(dataList || []) %>;
+    </script>
+    <script src="../script/detail-script.js"></script>
+    <script>
+    // Get current path
+    const currentPath = window.location.pathname;
+
+    // Select all menu links
+    document.querySelectorAll('.menu a').forEach(link => {
+        // Remove any existing 'active' class
+        link.classList.remove('active');
+
+        // Add 'active' if href matches current path
+        if (link.getAttribute('href') === currentPath) {
+            link.classList.add('active');
+        }
+    });
+</script>
+</body>
+</html>
